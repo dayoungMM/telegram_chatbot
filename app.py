@@ -35,7 +35,7 @@ def telegram():
     else:
         headers = {
             "Host": "kapi.kakao.com",
-            "Authorization": f"KakaoAK <키 입력>"
+            "Authorization": f"KakaoAK {KAKAO_KEY}"
             
         }
         query= message_text
@@ -44,9 +44,6 @@ def telegram():
         return_text = response_text
     requests.get(f'{url}{token}/sendMessage?chat_id={id}&text={return_text}')
     return "ok", 200
-
-
-  
 
 if __name__ == ("__main__"):
     app.run(debug=True)
