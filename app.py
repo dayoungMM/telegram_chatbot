@@ -1,6 +1,8 @@
 from flask import Flask , render_template, request
 from decouple import config
 import requests
+import random
+import json 
 
 app = Flask(__name__)
 token = config('TELEGRAM_BOT_TOKEN')
@@ -20,11 +22,31 @@ def send():
     requests.get(f'{url}{token}/sendMessage?chat_id={chat_id}&text={text}')
     return render_template('send.html') 
 
-@app.route(f'/{token}', methods=["POST"]) #post방식일때 무조건 실행
+@app.route(f'/{token}', methods=["POST"]) #post방식일때 무조건 실행. 아무나 못들어오게 토큰입력하고, post방식으로 들어오도록 함
 def telegram():
-    # chat_id = request.get_json.
+    data=request.get_json()
+    id=data['message']['chat']['id']
+    message_text = data['message']['text']
+    if message_text =="안녕":
+        return_text = "안녕하세요"
+    elif message_text == "로또":
+        numbers = range(1,46)
+        return_text = sorted(random.sample(numbers, 6)) # random.sample(변수, 갯수): 변수중에서 갯수만큼 뽑아줌
+    else:
+        headers = {
+            "Host": "kapi.kakao.com",
+            "Authorization": f"KakaoAK <키 입력>"
+            
+        }
+        query= message_text
+        response=requests.get(f'https://kapi.kakao.com/v1/translation/translate?src_lang=kr&target_lang=en&query={query}',headers=headers)
+        response_text=response.json()['translated_text'][0][0]
+        return_text = response_text
+    requests.get(f'{url}{token}/sendMessage?chat_id={id}&text={return_text}')
     return "ok", 200
 
+
+  
 
 if __name__ == ("__main__"):
     app.run(debug=True)
