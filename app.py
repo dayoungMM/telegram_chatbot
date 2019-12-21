@@ -8,6 +8,7 @@ app = Flask(__name__)
 token = config('TELEGRAM_BOT_TOKEN')
 chat_id = config('CHAT_ID')
 url = 'https://api.telegram.org/bot'
+kakao_key=config('KAKAO_KEY')
 
 @app.route('/')
 def hello():
@@ -35,7 +36,7 @@ def telegram():
     else:
         headers = {
             "Host": "kapi.kakao.com",
-            "Authorization": f"KakaoAK {KAKAO_KEY}"
+            "Authorization": f"KakaoAK {kakao_key}"
             
         }
         query= message_text

@@ -80,14 +80,15 @@ ngrok http 5000
 
 `https://로 시작하는 주소`/플라스크 라우트 주소 입력하면 플라스크로 만든 페이지로 이동할 수 있다.	
 
-- set Webhook: 로컬의 서버를 텔레그램 서버와 연동해주는 매소드
+- set Webhook: 로컬의 서버(Flask서버)를 텔레그램 서버와 연동해주는 매소드
+  - webhook.py참고 
 
 ```
-https://www.example.com/<token>.
+https://api.telegram.org/bot{token}/setwebhook?url={웹훅주소}/{토큰}
 ```
 
 
 
-
+6. 
 
 ​	
