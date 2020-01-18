@@ -89,6 +89,9 @@ https://api.telegram.org/bot{token}/setwebhook?url={웹훅주소}/{토큰}
 
 
 
-6. 
+6. 기능
+
+1) papago api를 이용한 번역 서비ㅛㅡ
+2) 메뉴 추천 서비스
 
 ​	
